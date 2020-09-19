@@ -1,0 +1,28 @@
+//Crear tablas con Primary Key
+
+CREATE TABLE VENDEDOR(
+	cod_vendedor integer primary key,
+	nom_vendedor varchar(30)
+);
+
+
+//Crear tablas con InnoDB
+
+CREATE TABLE PERSONA(
+	cod_persona integer primary key,
+	nom_persona varchar(30)
+)ENGINE=InnoDB;
+
+
+//Añadir elementos a una tabla
+
+ALTER TABLE cliente
+	add cod_vendedor integer;
+
+
+//Crear relación entre dos tablas (usando como foranea a la tabla cliente)
+
+ALTER TABLE cliente
+add constraint CLIENTE_VENDEDOR_FK FOREIGN KEY(cod_vendedor)
+REFERENCES VENDEDOR(cod_vendedor);
+
