@@ -18,9 +18,18 @@ CREATE TABLE PERSONA(
 
 ALTER TABLE cliente
 	add cod_vendedor integer;
+	
+
+//Crear LLave Foranea
+
+ALTER TABLE director
+ADD CONSTRAINT fk_dirige_hospital
+FOREIGN KEY (fk_dirige_hospital)
+REFERENCES hospital(id_hospital)
+ON DELETE RESTRICT;
 
 
-//Crear relación entre dos tablas (usando como foranea a la tabla cliente)
+//Crear relación entre dos tablas sin tener foranea (usando como foranea a la tabla cliente)
 
 ALTER TABLE cliente
 add constraint CLIENTE_VENDEDOR_FK FOREIGN KEY(cod_vendedor)
