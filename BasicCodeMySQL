@@ -26,3 +26,8 @@ ALTER TABLE cliente
 add constraint CLIENTE_VENDEDOR_FK FOREIGN KEY(cod_vendedor)
 REFERENCES VENDEDOR(cod_vendedor);
 
+
+//Eliminar llave foranea
+
+ALTER TABLE cliente   
+DROP CONSTRAINT CLIENTE_VENDE_FK;
