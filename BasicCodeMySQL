@@ -42,6 +42,34 @@ ALTER TABLE cliente
 DROP CONSTRAINT CLIENTE_VENDE_FK;
 
 
-//Ordenar ascendentemente
+//Ordenar ascendentemente (descendente desc)
 
-SELECT * FROM VENDEDOR order by 2 desc;
+SELECT * FROM VENDEDOR order by 2 asc;
+
+
+//Agregar datos
+
+INSERT INTO VENDEDOR (cod_vendedor, nom_vendedor) VALUES(1,"Sandra");
+o
+INSERT INTO CIUDAD VALUES(1,"Bogotá"),
+                         (2,"Medellin"),
+                         (3,"Cali");
+
+
+//Eliminar dato donde halla codigo = 4
+
+DELETE FROM VENDEDOR WHere cod_vendedor = 4;
+
+
+//Mostrar estructura de la tabla
+
+DESCRIBE CLIENTE;
+
+
+//Modificar valores de una tabla
+
+UPDATE FACTURA set val_factura = 8000 where cod_factura = 3;
+
+
+//
+
