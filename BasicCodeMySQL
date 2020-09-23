@@ -71,5 +71,15 @@ DESCRIBE CLIENTE;
 UPDATE FACTURA set val_factura = 8000 where cod_factura = 3;
 
 
-//
+//Consulta basica (SELECCIONE LAS FACTURAS DE LA CIUDAD DE MEDELLIN Y QUE SEAN DE CREDITO)
 
+SELECT cod_factura, val_factura, nom_ciudad, nom_f_pago
+
+ FROM FACTURA, CLIENTE, CIUDAD, F_PAGO
+
+ WHERE
+        FACTURA.cod_cliente=CLIENTE.cod_cliente AND
+        CLIENTE.cod_ciudad=CIUDAD.cod_ciudad AND
+        CLIENTE.cod_f_pago=F_PAGO.cod_f_pago AND
+        CIUDAD.cod_ciudad=2 AND
+        F_PAGO.cod_f_pago=1;
