@@ -40,3 +40,8 @@ REFERENCES VENDEDOR(cod_vendedor);
 
 ALTER TABLE cliente   
 DROP CONSTRAINT CLIENTE_VENDE_FK;
+
+
+//Ordenar ascendentemente
+
+SELECT * FROM VENDEDOR order by 2 desc;
