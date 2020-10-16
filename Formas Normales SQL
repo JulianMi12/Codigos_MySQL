@@ -1,0 +1,15 @@
+Normalización
+1FN, 2FN, 3FN, FN boyce and Codd, 4FN  y 5FN
+
+Objetivo: Minimizar la redundancia de datos y garantizar
+l consistencia de las Bases de Datos.
+-------------------------- // ----------------
+1FN :
+Se dice que una BD está en 1FN si todas sus tabla están en
+1FN.  y Una Tabla está en 1FN si es atómica y tiene integridad de tabla.
+---------------------------//------------------
+2FN :
+Se dice que una BD está en 2FN si todas sus tablas están en 2FN. y una tabla está en 2FN si está en 1FN y no existen dependencias parciales de la llave.
+--------------------------//-------------------
+3FN:
+Se dice que una BD está en 3FN si todas sus tablas están en 3FN, y una tabla está en 3FN si está en 2FN y no existen dependencias transitivas de la llave.
