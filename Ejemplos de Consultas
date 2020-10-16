@@ -1,0 +1,45 @@
+1. Costo por Empleado:
+
+  SELECT EMPLEADO.nom_empleado, Sum(hrs_asignadas*vlr_hora) AS total
+  FROM ASIGNACION, EMPLEADO, PROFESION
+  WHERE ASIGNACION.cod_empleado = EMPLEADO.cod_empleado AND
+              EMPLEADO.cod_profesion = PROFESION.cod_profesion
+  GROUP BY EMPLEADO.nom_empleado;
+
+2. Costo por Profesión:
+
+  SELECT PROFESION.nom_profesion, Sum(hrs_asignadas*vlr_hora) AS total
+  FROM ASIGNACION, EMPLEADO, PROFESION
+  WHERE ASIGNACION.cod_empleado = EMPLEADO.cod_empleado AND
+              EMPLEADO.cod_profesion = PROFESION.cod_profesion
+  GROUP BY PROFESION.nom_profesion;
+
+3. Costo por Proyecto:
+
+  SELECT nom_proyecto, sum(hrs_asignadas*vlr_hora) AS total
+  FROM PROYECTO, ASIGNACION, EMPLEADO, PROFESION
+  WHERE PROYECTO.cod_proyecto=ASIGNACION.cod_proyecto AND
+              ASIGNACION.cod_empleado=EMPLEADO.cod_empleado AND
+              EMPLEADO.cod_profesion=PROFESION.cod_profesion
+  GROUP BY nom_proyecto;
+  
+4. Costo por Proyecto y por Empleado:
+
+  SELECT PROYECTO.nom_proyecto, EMPLEADO.nom_empleado, Sum(hrs_asignadas*vlr_hora) AS total
+  FROM PROYECTO, ASIGNACION, EMPLEADO, PROFESION
+              WHERE PROYECTO.cod_proyecto = ASIGNACION.cod_proyecto AND
+              ASIGNACION.cod_empleado = EMPLEADO.cod_empleado AND
+              EMPLEADO.cod_profesion = PROFESION.cod_profesion
+  GROUP BY PROYECTO.nom_proyecto, EMPLEADO.nom_empleado
+  ORDER BY PROYECTO.nom_proyecto DESC;
+  
+5. Costo por Proyecto y por Profesión:
+
+  SELECT PROYECTO.nom_proyecto, PROFESION.nom_profesion, Sum(hrs_asignadas*vlr_hora) AS total
+  FROM PROYECTO, ASIGNACION, EMPLEADO, PROFESION
+  WHERE PROYECTO.cod_proyecto = ASIGNACION.cod_proyecto AND 
+              ASIGNACION.cod_empleado = EMPLEADO.cod_empleado AND 
+              EMPLEADO.cod_profesion = PROFESION.cod_profesion
+  GROUP BY PROYECTO.nom_proyecto, PROFESION.nom_profesion
+  ORDER BY PROYECTO.nom_proyecto DESC;
+
