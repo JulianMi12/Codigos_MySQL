@@ -1,0 +1,75 @@
+                                                                             //Sentencia Basica
+
+DECLARE 
+
+BEGIN
+
+END;
+
+
+                                                                              //Imprimir Datos
+
+DECLARE 
+    X NUMBER;
+BEGIN
+   X:=7;
+   DBMS_OUTPUT.PUT_LINE('El valor de la variable es: '||X);
+END;
+
+
+                                                                            //Capturar por teclado
+
+DECLARE 
+    X NUMBER:=:variable; //Fuera del localhost cambiamos por X NUMBER:=&variable;
+    
+    -- Ejemplo de comentario
+BEGIN
+   DBMS_OUTPUT.PUT_LINE('El valor de la variable es: '||X);
+END;
+
+
+                                                                                  //Condicionales
+                              IF(condicion)THEN
+                               instrucciones
+                              ELSIF(condicion)THEN
+                               instrucciones
+                              [ELSE]
+                               instrucciones
+                              END;
+//////////////////////////////////
+DECLARE 
+    X NUMBER:=:X;
+BEGIN
+   IF(X>7)THEN
+      DBMS_OUTPUT.PUT_LINE('El valor de la variable X es mayor de 7 y su valor es: '||X);
+   ELSIF(x < 7) THEN
+      DBMS_OUTPUT.PUT_LINE('El valor de la variable X es menor de 7 y su valor es: '||X);
+   ELSE
+      DBMS_OUTPUT.PUT_LINE('El valor de la variable X es: '||X);
+   END IF;
+END;
+
+
+                                                                                    //Etiquetas
+
+DECLARE 
+    X NUMBER:=:X;
+BEGIN
+   IF(X>7)THEN
+      GOTO proceso3;
+   ELSIF(x < 7) THEN
+      GOTO proceso2;
+   ELSE
+      GOTO proceso1;
+
+   END IF;
+
+<<proceso1>>
+   DBMS_OUTPUT.PUT_LINE('Soy el proceso 1');
+   GOTO FIN;                      --break
+<<proceso2>>
+   DBMS_OUTPUT.PUT_LINE('Soy el proceso 2');
+<<proceso3>>
+   DBMS_OUTPUT.PUT_LINE('Soy el proceso 3');
+
+END;
