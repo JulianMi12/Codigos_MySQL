@@ -73,3 +73,62 @@ BEGIN
    DBMS_OUTPUT.PUT_LINE('Soy el proceso 3');
 
 END;
+
+
+                                                                          //LOOP = numeros del 1 al 10
+                                                                                        
+DECLARE
+  X NUMBER:=1;
+BEGIN
+  LOOP
+    dbms_output.put_line(X);
+    x:=x+1;
+    IF (x>10) THEN
+      EXIT;
+    END IF;
+  END LOOP;
+END;
+
+
+
+                                                                              //WHILE = numeros del 3 al 11
+                                                                              
+DECLARE
+  X NUMBER:=3;
+BEGIN
+  WHILE(x <= 11) LOOP
+    dbms_output.put_line(X);
+    x:=x+1;
+  END LOOP;
+END;
+
+                                                                            //Los primeros N numeros pares
+
+DECLARE
+  X NUMBER:=1;
+BEGIN
+  WHILE(X <=:N) LOOP
+    dbms_output.put_line(2*X);
+    x:=x+1;
+  END LOOP;
+END;
+
+
+                                                                                            //For 
+
+
+BEGIN
+  FOR X IN 1..:n LOOP
+    dbms_output.put_line(2*X);
+  END LOOP;
+END;
+
+                                                                                            //For en reversa
+
+BEGIN
+  FOR X IN REVERSE 1..:n LOOP
+    dbms_output.put_line(2*X);
+  END LOOP;
+END;
+
+
