@@ -132,3 +132,53 @@ BEGIN
 END;
 
 
+                                                                          // Crear procedimientos Y/o funciones(ahorrar codigo)
+                                                                          
+CREATE OR REPLACE PROCEDURE print
+  IS
+  BEGIN
+    dbms_output.put_line(3);
+  END;
+//////////////////////////////////////////////////
+CREATE OR REPLACE FUNCTION print
+  RETURN NUMBER
+    IS
+    BEGIN
+      RETURN(3);
+    END;
+    
+                                                                                     //Funcion Recursiva
+    
+CREATE OR REPLACE FUNCTION fn_fact(n number)
+RETURN NUMBER
+IS 
+  BEGIN
+    IF(n=0) THEN
+      RETURN(1);
+    ELSE
+      RETURN n*fn_fact(n-1);
+    END IF;
+END;
+
+                                                                                    //Fibonacci Recursivo
+
+DECLARE
+  num NUMBER:=:NUM;
+BEGIN
+  FOR I IN 1..num LOOP
+    println(fn_fib(I));
+  END LOOP;
+END;
+
+create or replace FUNCTION fn_fib(n number)
+RETURN NUMBER
+IS 
+  BEGIN
+    IF(n=0) THEN
+      RETURN(0);
+    ELSIF(N=1) THEN
+      RETURN(1);
+    ELSE
+      RETURN(fn_fib(n-1)+fn_fib(n-2));
+    END IF;
+END;
