@@ -182,3 +182,35 @@ IS
       RETURN(fn_fib(n-1)+fn_fib(n-2));
     END IF;
 END;
+
+
+                                                                               // Creacion de un Cursor
+
+CREATE OR REPLACE PROCEDURE VXV
+  IS
+    CURSOR CURSOR_VXV
+      IS
+        SELECT
+          nom_vendedor as nombre, sum(val_factura) ventas
+        FROM
+          vendedor, cliente, factura
+        WHERE
+          vendedor.cod_vendedor = cliente.cod_vendedor AND 
+          cliente.cod_cliente = factura.cod_cliente
+            group by rollup(nom_vendedor);            
+        REGISTRO CURSOR_VXV%ROWTYPE;
+
+BEGIN
+  OPEN CURSOR_VXV;
+  LOOP
+    FETCH CURSOR_VXV INTO REGISTRO;
+    EXIT WHEN CURSOR_VXV%NOTFOUND;
+    print(REGISTRO.nombre||'-->'||REGISTRO.ventas);
+  END LOOP;
+  CLOSE CURSOR_VXV;
+END;
+ // Ejecucion
+BEGIN
+  VXV;
+END;
+
