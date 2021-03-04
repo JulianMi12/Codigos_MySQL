@@ -214,3 +214,58 @@ BEGIN
   VXV;
 END;
 
+                                                                              //Cursor con FOR
+
+CREATE OR REPLACE PROCEDURE VXCLIF
+  IS
+    CURSOR CURSOR_VXCLIF
+      IS
+        SELECT
+          nom_cliente as nombre_cliente, sum(val_factura) as ventas
+        FROM
+          CLIENTE, FACTURA
+        WHERE
+          CLIENTE.cod_cliente = FACTURA.cod_cliente
+            group by rollup(nom_cliente);
+
+BEGIN
+FOR REGISTRO IN CURSOR_VXCLIF LOOP
+  print(REGISTRO.nombre_cliente||'----->'||REGISTRO.ventas);
+END LOOP;
+END;
+
+BEGIN
+  VXCLIF;
+END;
+
+                                                                                    //Cursor con WHILE
+
+CREATE OR REPLACE PROCEDURE VXC
+  IS
+    CURSOR CURSOR_VXC
+      IS
+        SELECT
+          nom_ciudad as nombre_ciudad, sum(val_factura) as ventas
+        FROM
+          CIUDAD, CLIENTE, FACTURA
+        WHERE
+          CIUDAD.cod_ciudad = CLIENTE.cod_ciudad AND
+          CLIENTE.cod_cliente = FACTURA.cod_cliente
+            group by rollup(nom_ciudad);
+
+  REGISTRO CURSOR_VXC%ROWTYPE;
+BEGIN
+  OPEN CURSOR_VXC;
+  FETCH CURSOR_VXC INTO REGISTRO;
+  WHILE(CURSOR_VXC%FOUND) LOOP
+    print(REGISTRO.nombre_ciudad||'----->'||REGISTRO.ventas);
+  FETCH CURSOR_VXC INTO REGISTRO;
+END LOOP;
+CLOSE CURSOR_VXC;
+END;
+
+BEGIN
+  VXC;
+END;
+
+//
