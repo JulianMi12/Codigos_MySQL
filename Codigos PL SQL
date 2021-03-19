@@ -268,4 +268,95 @@ BEGIN
   VXC;
 END;
 
-//
+                                                                                      //Creacion de paquetes
+CREATE OR REPLACE PACKAGE paquetico
+IS
+PROCEDURE imprimir(cadena varchar);
+
+END paquetico;
+
+                                                                                        //Ejemplo paquete
+create or replace PACKAGE pre_parcial
+  IS
+     PROCEDURE cCredXFac;
+     PROCEDURE ProgXMat(prog_dado number);
+
+     FUNCTION CredXEdado(estudiante_dado number)
+       RETURN VARCHAR;
+END pre_parcial;​
+
+
+
+create or replace PACKAGE BODY pre_parcial
+    IS
+PROCEDURE cCredXFac
+  IS
+    CURSOR CURSOR_cCredXFac
+      IS
+        SELECT
+          nom_facultad as nombre_f, sum(can_creditos) creditos
+        FROM
+          FACULTAD, PROGRAMA, ESTUDIANTE, REGISTRO, MATERIA
+        WHERE
+          FACULTAD.cod_facultad = PROGRAMA.cod_facultad AND
+          PROGRAMA.cod_programa = ESTUDIANTE.cod_programa AND
+          ESTUDIANTE.cod_estudiante = REGISTRO.cod_estudiante AND
+          REGISTRO.cod_materia = MATERIA.cod_materia
+            group by rollup(nom_facultad);   
+
+        REGISTRO CURSOR_cCredXFac%ROWTYPE;
+BEGIN
+   OPEN CURSOR_cCredXFac;
+   FETCH CURSOR_cCredXFac INTO REGISTRO;
+   WHILE(CURSOR_cCredXFac%FOUND) LOOP
+    print(REGISTRO.nombre_f||'--->'||REGISTRO.creditos);
+    FETCH CURSOR_cCredXFac INTO REGISTRO;
+   END LOOP;
+   CLOSE CURSOR_cCredXFac;
+END;
+
+PROCEDURE ProgXMat(prog_dado number)
+  IS
+    CURSOR CURSOR_ProgXMat
+      IS
+        SELECT
+          nom_programa as nombre_prog, nom_materia as nombre_mat
+        FROM
+          PROGRAMA, ESTUDIANTE, REGISTRO, MATERIA
+        WHERE
+          PROGRAMA.cod_programa = ESTUDIANTE.cod_programa AND
+          ESTUDIANTE.cod_estudiante = REGISTRO.cod_estudiante AND
+          REGISTRO.cod_materia = MATERIA.cod_materia AND
+          PROGRAMA.cod_programa = prog_dado
+            group by(nom_programa, nom_materia);   
+
+        REGISTRO CURSOR_ProgXMat%ROWTYPE;
+BEGIN
+   OPEN CURSOR_ProgXMat;
+   FETCH CURSOR_ProgXMat INTO REGISTRO;
+   WHILE(CURSOR_ProgXMat%FOUND) LOOP
+    print(REGISTRO.nombre_prog||' ---> '||REGISTRO.nombre_mat);
+    FETCH CURSOR_ProgXMat INTO REGISTRO;
+   END LOOP;
+   CLOSE CURSOR_ProgXMat;
+END;
+
+FUNCTION CredXEdado(estudiante_dado number)
+    RETURN VARCHAR
+      IS
+        nombre_estudiante ESTUDIANTE.nom_estudiante%type;
+        creditos MATERIA.can_creditos%type;
+      BEGIN
+          SELECT
+            nom_estudiante, sum(can_creditos) INTO nombre_estudiante, creditos
+          FROM
+            ESTUDIANTE, REGISTRO, MATERIA
+          WHERE
+            ESTUDIANTE.cod_estudiante = REGISTRO.cod_estudiante AND
+            REGISTRO.cod_materia = MATERIA.cod_materia AND
+            ESTUDIANTE.cod_estudiante = estudiante_dado
+              group by (nom_estudiante);
+          RETURN (nombre_estudiante||'--->'||creditos);
+      END;
+
+END pre_parcial;​
