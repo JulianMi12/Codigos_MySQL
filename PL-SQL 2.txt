@@ -1,0 +1,25 @@
+------------------------------ Triggers ------------------------------
+
+CREATE OR REPLACE TRIGGER AU_PERSONA
+  AFTER UPDATE ON PERSONA
+    FOR EACH ROW
+    BEGIN
+      print('Estan modificando PERSONA, el nombre era '||:OLD.nom_persona||' y ahora el nombre es '||:NEW.nom_persona);
+    END;
+    
+    
+CREATE OR REPLACE TRIGGER BD_PERSONA
+  BEFORE DELETE ON PERSONA
+    FOR EACH ROW
+    BEGIN
+      imprimir('Ha eliminado de la tabla PERSONA, el registro con nombre: '||:OLD.nom_persona);
+    END;
+
+    
+CREATE OR REPLACE TRIGGER AI_PERSONA
+  AFTER INSERT ON PERSONA
+    FOR EACH ROW
+    BEGIN
+      print('See ha creado en la tabla PERSONA, el registro con codigo: '||:NEW.cod_persona||' y nombre '||:NEW.nom_persona);
+    END;
+------------------------------ Triggers ------------------------------
