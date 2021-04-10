@@ -1,4 +1,4 @@
------------------------------- Triggers ------------------------------
+------------------------------------------------------------ Triggers ------------------------------------------------------------
 
 CREATE OR REPLACE TRIGGER AU_PERSONA
   AFTER UPDATE ON PERSONA
@@ -22,4 +22,48 @@ CREATE OR REPLACE TRIGGER AI_PERSONA
     BEGIN
       print('See ha creado en la tabla PERSONA, el registro con codigo: '||:NEW.cod_persona||' y nombre '||:NEW.nom_persona);
     END;
------------------------------- Triggers ------------------------------
+    
+------------------------------------------------------------ Triggers Completos ------------------------------------------------------------
+
+------------------------------ Eje 1 ------------------------------
+create or replace TRIGGER TT_PERSONA
+AFTER INSERT  OR UPDATE OR DELETE ON PERSONA
+FOR EACH ROW
+BEGIN
+    IF INSERTING THEN
+        print('Se ha creado en la tabla PERSONA, el registro con codigo: '||:NEW.cod_persona||' y nombre '||:NEW.nom_persona);
+    END IF;
+
+    IF UPDATING THEN
+        print('Estan modificando PERSONA, el nombre era '||:OLD.nom_persona||' y ahora el nombre es '||:NEW.nom_persona);
+    END IF;
+
+    IF DELETING THEN
+        print('Ha eliminado de la tabla PERSONA, el registro con nombre: '||:OLD.nom_persona);
+    END IF;
+END;
+    
+    
+------------------------------ Eje 2 ------------------------------
+    create or replace TRIGGER TT_PERSONA
+AFTER INSERT  OR UPDATE OR DELETE ON PERSONA
+FOR EACH ROW
+BEGIN
+    IF INSERTING THEN
+        print('Se ha creado en la tabla PERSONA, el registro con codigo: '||:NEW.cod_persona||' y nombre '||:NEW.nom_persona);
+    END IF;
+
+    IF UPDATING THEN
+        print('Estan modificando PERSONA, el nombre era '||:OLD.nom_persona||' y ahora el nombre es '||:NEW.nom_persona);
+    END IF;
+
+    IF DELETING THEN
+        print('Ha eliminado de la tabla PERSONA, el registro con nombre: '||:OLD.nom_persona);
+    END IF;
+END;
+
+------------------------------------------------------------ Utilities ------------------------------------------------------------
+
+ SYS_CONTEXT('USERENV','IP_ADDRESS');           //Devuelve la ip del usuario
+ 
+ 
