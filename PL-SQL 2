@@ -67,3 +67,50 @@ END;
  SYS_CONTEXT('USERENV','IP_ADDRESS');           //Devuelve la ip del usuario
  
  
+ 
+ 
+ 
+ 
+ 
+ 
+ ------------------------------------------------------------ VISTAS MATERIALIZADAS ------------------------------------------------------------
+ 
+ 
+ 
+ ------------------------ REFRESH -----------------------------
+CREATE MATERIALIZED VIEW VISTA1M
+(nombre, ventas)
+REFRESH ON DEMAND
+AS
+  SELECT
+    nom_cliente as nombre_cliente, sum(val_factura) as ventas_total
+  FROM
+    CLIENTE30, FACTURA30
+  WHERE
+    CLIENTE30.cod_cliente = FACTURA30.cod_cliente
+    group by nom_cliente;
+    
+
+BEGIN
+DBMS_MVIEW.REFRESH('VISTA1M');  ---------------------Refresca la vista, de otro modo no actualiza los datos ---------------------------------------
+END;
+
+
+
+ 
+ ------------------------ COMMIT-----------------------------
+CREATE MATERIALIZED VIEW VISTA2M
+(nombre, ventas)
+REFRESH ON COMMIT
+AS
+  SELECT
+    nom_cliente as nombre_cliente, sum(val_factura) as ventas_total
+  FROM
+    CLIENTE30, FACTURA30
+  WHERE
+    CLIENTE30.cod_cliente = FACTURA30.cod_cliente
+    group by nom_cliente;
+
+BEGIN
+COMMIT;
+END;
