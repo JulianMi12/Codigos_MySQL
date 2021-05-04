@@ -114,3 +114,38 @@ AS
 BEGIN
 COMMIT;
 END;
+
+ ------------------------------------------------------------ SECUENCIAS ------------------------------------------------------------
+ 
+CREATE SEQUENCE SECUENCIA1
+MINVALUE 2
+MAXVALUE 30
+START WITH 8
+INCREMENT BY 2
+CACHE 10
+CYCLE
+ORDER
+
+
+SELECT SECUENCIA1.NEXTVAL FROM DUAL; --------------------DEVUELVE EL VALOR SIGUIENTE----------------------------
+SELECT SECUENCIA1.CURRVAL FROM DUAL; --------------------DEVUELVE EL VALOR ACTUAL-------------------------------
+
+-------------------- EJEMPLO Codigo autoincrementado----------------------------
+CREATE SEQUENCE SECUENCIAF3
+MINVALUE 7
+MAXVALUE 1000
+START WITH 23
+INCREMENT BY 1
+NOCACHE
+ORDER
+NOCYCLE
+
+create or replace TRIGGER BI_FACTURA3
+BEFORE INSERT ON FACTURA3
+FOR EACH ROW
+BEGIN
+SELECT SECUENCIAF3.NEXTVAL INTO :NEW.COD_FACTURA FROM DUAL;
+END;
+
+
+
