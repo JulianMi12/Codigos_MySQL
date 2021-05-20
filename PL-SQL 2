@@ -149,3 +149,18 @@ END;
 
 
 
+ ------------------------------------------------------------ INDICES ------------------------------------------------------------
+ 
+ BEGIN
+FOR X IN 1..1000000 LOOP
+INSERT INTO DELINCUENTES VALUES(X, 'Delincuente_'||x, 'Delito_'||X, 'Cali');
+END LOOP;
+END;
+
+CREATE INDEX indiced
+ON DELINCUENTES(nom_delincuente);
+
+------------------------Crea consultas mas rapidas y eficientes-----------------------
+
+
+
